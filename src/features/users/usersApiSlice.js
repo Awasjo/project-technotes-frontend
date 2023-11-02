@@ -13,7 +13,7 @@ export const usersApiSlice = apiSlice.injectEndpoints({
       validateStatus: (response, result) => {
         return response.status === 200 && !result.isError;
       },
-      keepUnusedDataFor: 5, //will keep the data for 5 second, the default is 60 seconds in the cache
+      //keepUnusedDataFor: 5, //will keep the data for 5 second, the default is 60 seconds in the cache
       transformResponse: (responseData) => {
         //geting the response form trhe query, we are mapping over the data, and we are setting the user.id property to yhe user._id, because we are looking for an id property, and then we retrn the userAdapter and add the loaded users into it, from mongoDB
         const loadedUsers = responseData.map((user) => {
@@ -44,7 +44,7 @@ export const usersApiSlice = apiSlice.injectEndpoints({
       invalidatesTags: [{ type: "User", id: "LIST" }],
     }),
     //similar to the above endpoint, this will be used to update user information, passing in initial data and then passing that into app api slide which then passes through the back end
-    updatedUser: builder.mutation({
+    updateUser: builder.mutation({
       query: (initialUserData) => ({
         url: "/users",
         method: "PATCH",
@@ -70,7 +70,7 @@ export const usersApiSlice = apiSlice.injectEndpoints({
 export const {
   useGetUsersQuery,
   useAddNewUserMutation,
-  useUpdatedUserMutation,
+  useUpdateUserMutation,
   useDeleteUserMutation,
 } = usersApiSlice;
 

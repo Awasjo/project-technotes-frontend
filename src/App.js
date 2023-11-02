@@ -6,6 +6,10 @@ import DashLayout from "./components/DashLayout";
 import Welcome from "./features/auth/Welcome";
 import NotesList from "./features/notes/NotesList";
 import UsersList from "./features/users/UsersList";
+import EditUser from "./features/users/EditUser";
+import NewUserForm from "./features/users/NewUserForm";
+import EditNote from "./features/notes/EditNote";
+import NewNote from "./features/notes/NewNote";
 
 function App() {
   return (
@@ -19,17 +23,27 @@ function App() {
 
         {/* this is the protected route */}
         <Route path="dash" element={<DashLayout />}>
+
           {/* this is the index for the protect routes */}
           <Route index element={<Welcome />} />
-          {/* the domain will show as domain/dash/notes */}
-          <Route path="notes">
-            <Route index element={<NotesList />} />
-          </Route>
+
           {/* the domain will show as domain/dash/users */}
           <Route path="users">
             <Route index element={<UsersList />} />
+            {/* the path is going to be the id parameter */}
+            <Route path=":id" element={<EditUser/>}/>
+            <Route path="new" element={<NewUserForm/>}/>
           </Route>
-        </Route>{/*End of dash, which is the end of the protected routes*/}
+
+          {/* the domain will show as domain/dash/notes */}
+          <Route path="notes">
+            <Route index element={<NotesList />} />
+            <Route path=":id" element={<EditNote/>}/>
+            <Route path="new" element={<NewNote/>}/>
+          </Route>
+
+        </Route>
+        {/*End of dash, which is the end of the protected routes*/}
       </Route>
     </Routes>
   );
