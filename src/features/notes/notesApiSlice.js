@@ -1,7 +1,11 @@
 import { createSelector, createEntityAdapter } from "@reduxjs/toolkit";
 import { apiSlice } from "../../app/api/apiSlice";
 
-const notesAdapter = createEntityAdapter({});
+//to compare the data its inside the entity adapter with a custom comparator 
+const notesAdapter = createEntityAdapter({
+  sortComparer: (a, b) =>
+    (a.completed === b.completed) ? 0 : a.completed ? 1 : -1,
+});
 const initialState = notesAdapter.getInitialState();
 
 //we are adding an end point now, for the notes, we already have the base url in the apiSlice defined in the app folder
