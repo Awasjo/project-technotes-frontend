@@ -9,7 +9,11 @@ const UsersList = () => {
         isSuccess,
         isError,
         error
-    } = useGetUsersQuery()
+    } = useGetUsersQuery(undefined, {
+        pollingInterval: 60000,
+        refetchOnFocus: true,
+        refetchOnMountOrArgChange: true
+    }) // this allows us to refetch/refresh at a selected interval of 60 000 ms (60 seconds) and whenever we go back to the page, and change anything 
 
     let content
 

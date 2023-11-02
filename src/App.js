@@ -10,6 +10,7 @@ import EditUser from "./features/users/EditUser";
 import NewUserForm from "./features/users/NewUserForm";
 import EditNote from "./features/notes/EditNote";
 import NewNote from "./features/notes/NewNote";
+import Prefetch from "./features/auth/Prefetch";
 
 function App() {
   return (
@@ -20,30 +21,29 @@ function App() {
         <Route index element={<Public />} />
         {/* again below is not an index, its denoted by a path  */}
         <Route path="login" element={<Login />} />
+        <Route element={<Prefetch />}>
+          {/* this is the protected route */}
+          <Route path="dash" element={<DashLayout />}>
+            {/* this is the index for the protect routes */}
+            <Route index element={<Welcome />} />
 
-        {/* this is the protected route */}
-        <Route path="dash" element={<DashLayout />}>
+            {/* the domain will show as domain/dash/users */}
+            <Route path="users">
+              <Route index element={<UsersList />} />
+              {/* the path is going to be the id parameter */}
+              <Route path=":id" element={<EditUser />} />
+              <Route path="new" element={<NewUserForm />} />
+            </Route>
 
-          {/* this is the index for the protect routes */}
-          <Route index element={<Welcome />} />
-
-          {/* the domain will show as domain/dash/users */}
-          <Route path="users">
-            <Route index element={<UsersList />} />
-            {/* the path is going to be the id parameter */}
-            <Route path=":id" element={<EditUser/>}/>
-            <Route path="new" element={<NewUserForm/>}/>
+            {/* the domain will show as domain/dash/notes */}
+            <Route path="notes">
+              <Route index element={<NotesList />} />
+              <Route path=":id" element={<EditNote />} />
+              <Route path="new" element={<NewNote />} />
+            </Route>
           </Route>
-
-          {/* the domain will show as domain/dash/notes */}
-          <Route path="notes">
-            <Route index element={<NotesList />} />
-            <Route path=":id" element={<EditNote/>}/>
-            <Route path="new" element={<NewNote/>}/>
-          </Route>
-
+          {/*End of dash, which is the end of the protected routes*/}
         </Route>
-        {/*End of dash, which is the end of the protected routes*/}
       </Route>
     </Routes>
   );
