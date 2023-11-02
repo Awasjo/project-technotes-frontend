@@ -5,6 +5,7 @@ const usersAdapter = createEntityAdapter({});
 const initialState = usersAdapter.getInitialState();
 
 //we are adding an end point now, for the users, we already have the base url in the apiSlice defined in the app folder
+//the end points here is like the end points of the URL, we have get users, so will be adding the rest of the crud operations
 export const usersApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getUsers: builder.query({
@@ -31,10 +32,47 @@ export const usersApiSlice = apiSlice.injectEndpoints({
         } else return [{ type: "User", id: "LIST" }];
       },
     }),
+    //passing in some initial user data, ussing the post method and then passing in the initial user data in the body, the user list will be invalidated so that will be updated
+    addNewUser: builder.mutation({
+      query: (initialUserData) => ({
+        url: "/users",
+        method: "POST",
+        body: {
+          ...initialUserData,
+        },
+      }),
+      invalidatesTags: [{ type: "User", id: "LIST" }],
+    }),
+    //similar to the above endpoint, this will be used to update user information, passing in initial data and then passing that into app api slide which then passes through the back end
+    updatedUser: builder.mutation({
+      query: (initialUserData) => ({
+        url: "/users",
+        method: "PATCH",
+        body: {
+          ...initialUserData,
+        },
+      }),
+      invalidatesTags: (result, error, arg) => [{ type: "User", id: arg.id }],
+    }),
+    //same idea here but instead of spreading the user data, we only fetch the id of the user
+    deleteUser: builder.mutation({
+      query: ({ id }) => ({
+        url: `/users`,
+        method: "DELETE",
+        body: { id },
+      }),
+      invalidatesTags: (result, error, arg) => [{ type: "User", id: arg.id }],
+    }),
   }),
 });
 
-export const { useGetUsersQuery } = usersApiSlice;
+//these are hooks that are automatically created when we add the end points above
+export const {
+  useGetUsersQuery,
+  useAddNewUserMutation,
+  useUpdatedUserMutation,
+  useDeleteUserMutation,
+} = usersApiSlice;
 
 // returns the query result object
 export const selectUsersResult = usersApiSlice.endpoints.getUsers.select();
