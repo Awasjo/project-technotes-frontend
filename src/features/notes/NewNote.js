@@ -1,16 +1,12 @@
-import { useState, useEffect } from "react"
-import { useAddNewNoteMutation } from "./notesApiSlice"
-import { useNavigate } from "react-router-dom"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faSave } from "@fortawesome/free-solid-svg-icons"
-import { ROLES } from "../../config/roles"
-
-
+import { useSelector } from 'react-redux'
+import { selectAllUsers } from '../users/usersApiSlice'
+import NewNoteForm from './NewNoteForm'
 
 const NewNote = () => {
-  return (
-    <div>NewNote</div>
-  )
-}
+    const users = useSelector(selectAllUsers)
 
+    const content = users ? <NewNoteForm users={users} /> : <p>Loading...</p>
+
+    return content
+}
 export default NewNote
