@@ -5,7 +5,10 @@ import NewNoteForm from './NewNoteForm'
 const NewNote = () => {
     const users = useSelector(selectAllUsers)
 
-    const content = users ? <NewNoteForm users={users} /> : <p>Loading...</p>
+    //when we go into this page, we get an error, because we dont get users back so it was changed to below as a place holder for now
+    if (!users?.length) return <p>Not Currently Available</p>
+
+    const content = <NewNoteForm users={users} />
 
     return content
 }
