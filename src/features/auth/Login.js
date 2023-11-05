@@ -4,6 +4,8 @@ import { useNavigate, Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setCredentials } from "./authSlice";
 import { useLoginMutation } from "./authApiSlice";
+import usePersist from "../../hooks/usePersist";
+
 
 const Login = () => {
   const userRef = useRef(); //useRef hook provided by redux, this is used to hold a reference to a dom element, 
@@ -11,6 +13,7 @@ const Login = () => {
   const [username, setUsername] = useState(""); //state the updates when the setUsername is changed 
   const [password, setPassword] = useState("");
   const [errMsg, setErrMsg] = useState("");
+  const [persist, setPersist] = usePersist(); //takes a bool
 
   const navigate = useNavigate();//navigate hook which is to be used when we submit the form, and can navigate to the dash
   const dispatch = useDispatch();//instantiate for us to access the dispatch function form the redux store js, the dispatch function is now stored in the dispatch variable, functions can include other slices that are linked to the store as well, so in this case we are using a function exported by the auth slice
@@ -49,6 +52,7 @@ const Login = () => {
 
   const handleUserInput = (e) => setUsername(e.target.value); //related to the states above, whenever the user types a change within the username and password fields, these two functions are triggered, which change the state of the username and password
   const handlePwdInput = (e) => setPassword(e.target.value);
+  const handleToggle = () => setPersist(prev => !prev)
 
   const errClass = errMsg ? "errmsg" : "offscreen";
 
@@ -87,6 +91,16 @@ const Login = () => {
             required
           />
           <button className="form__submit-button">Sign In</button>
+
+          <label htmlFor="persist" className="form__persist">
+            <input
+              type="checkbox"
+              className="form__checkbox"
+              id="persist"
+              onChange={handleToggle}
+              checked={persist}/>
+              Trust this device
+            </label>
         </form>
       </main>
       <footer>
