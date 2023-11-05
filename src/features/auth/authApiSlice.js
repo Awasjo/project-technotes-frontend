@@ -20,11 +20,12 @@ export const authApiSlice = apiSlice.injectEndpoints({
       async onQueryStarted(arg, { dispatch, queryFulfilled }) {
         //this is call back function that get executed when this end point is initiated
         try {
-          //const { data } =
-          await queryFulfilled; //waits for the query to finish before going to the next line, to be exact, waits for this mutation end point to finish successfully
-          //console.log(data)
+          const { data } = await queryFulfilled; //waits for the query to finish before going to the next line, to be exact, waits for this mutation end point to finish successfully
+          console.log(data)
           dispatch(logOut()); //this is a logout reducer that is made, and its dispatched to log the user out, to clear the token by making it null
-          dispatch(apiSlice.util.resetApiState()); // reset the API state, possibly to handle any cleanup related to the API request
+          setTimeout(() =>{ //the purpose of this is because when we dont set a time out, all the subscriptions , notes, users and so on will not fully unload, so we wait a little after logging out to unload everything as we unsubscribe 
+            dispatch(apiSlice.util.resetApiState()); // reset the API state, possibly to handle any cleanup related to the API request
+          }, 1000)
         } catch (err) {
           console.log(err);
         }
