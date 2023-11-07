@@ -10,15 +10,15 @@ const EditNote = () => {
 
   const { username, isManager, isAdmin } = useAuth(); 
 
-  const { note } = useGetNotesQuery("userList", { //getting the note
+  const { note } = useGetNotesQuery("notesList", { //getting the note
     selectFromResult: ({ data }) => ({
       note: data?.entities[id],
     }),
   });
 
-  const users = useGetUsersQuery("userList", {
+  const {users} = useGetUsersQuery("usersList", {
     selectFromResult: ({ data }) => ({
-      user: data?.ids.map((id) => data?.entities[id]), //the ids are iterable and the entities are not, so we are mapping over it for each id we are grabbing the entitity, getting a users array.
+      users: data?.ids.map(id => data?.entities[id]), //the ids are iterable and the entities are not, so we are mapping over it for each id we are grabbing the entitity, getting a users array.
     }),
   });
 

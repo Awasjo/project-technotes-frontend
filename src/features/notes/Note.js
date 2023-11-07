@@ -7,7 +7,7 @@ import { memo } from 'react'
 const Note = ({ noteId }) => {
 
     const {note} = useGetNotesQuery("notesList", {
-        selectFromResults: ({data}) =>({ //this is the delector for the useGetNotesQuery 
+        selectFromResult: ({data}) =>({ //this is the delector for the useGetNotesQuery 
             note: data?.entities[noteId] //this gives us the note the same way as before, this will only make one query, as opposed to before where more than one was created. 
         })
     })
