@@ -2,7 +2,7 @@ import {createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { setCredentials } from '../../features/auth/authSlice'
 
 const baseQuery = fetchBaseQuery({
-    baseUrl : 'http://localhost:3500', //before we only provided this, but we want to add some other things, 
+    baseUrl : 'https://technotes-api.onredner.com', //before we only provided this, but we want to add some other things, 
     credentials: 'include',//we will always send the cookie
     prepareHeaders: (headers, {getState}) =>{//the first to be added to the headers in the fetchBaseQuery, and then it also has an api object, and we can destruct the getState from it to be included withing here, we use get state to look at the auth state and getting the token, and then assigining it to the token, if we do have something in there, and we will set the headers's authorization key to that string starting with Bearer
         const token = getState().auth.token

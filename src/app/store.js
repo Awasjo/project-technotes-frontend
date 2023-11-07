@@ -10,7 +10,7 @@ export const store = configureStore({ //creating the store.
     },
     middleware: getDefaultMiddleware =>
         getDefaultMiddleware().concat(apiSlice.middleware), // default handling of middleware, should always be in everyone's store since it's in charge of cleaning up, poling and so on
-    devTools: true //using dev tools browser extension. 
+    devTools: false //disables redux devtools. 
 })
 
 setupListeners(store.dispatch) //allows us to use this to set up listeners in the users list and notes list
