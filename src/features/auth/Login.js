@@ -5,9 +5,13 @@ import { useDispatch } from "react-redux";
 import { setCredentials } from "./authSlice";
 import { useLoginMutation } from "./authApiSlice";
 import usePersist from "../../hooks/usePersist";
+import useTitle from '../../hooks/useTitle'
+import PulseLoader from 'react-spinners/PulseLoader'
 
 
 const Login = () => {
+  useTitle('Employee Login')
+
   const userRef = useRef(); //useRef hook provided by redux, this is used to hold a reference to a dom element, 
   const errRef = useRef(); //similar to above
   const [username, setUsername] = useState(""); //state the updates when the setUsername is changed 
@@ -56,7 +60,7 @@ const Login = () => {
 
   const errClass = errMsg ? "errmsg" : "offscreen";
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return <PulseLoader color={"#FFF"} />
 
   const content = (
     <section className="public">

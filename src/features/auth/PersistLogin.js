@@ -4,6 +4,7 @@ import { useRefreshMutation } from "./authApiSlice"
 import usePersist from "../../hooks/usePersist"
 import { useSelector } from 'react-redux'
 import { selectCurrentToken } from "./authSlice"
+import PulseLoader from 'react-spinners/PulseLoader'
 
 const PersistLogin = () => {
 
@@ -54,7 +55,7 @@ const PersistLogin = () => {
         content = <Outlet /> //this will go to the child route which will either be login, or dash. dash is when successful token, login is when its not 
     } else if (isLoading) { //persist: yes, token: no
         console.log('loading')
-        content = <p>Loading...</p>//we dont have the token yet, we are setting the auth 
+        content = <PulseLoader color={"#FFF"} />//we dont have the token yet, we are setting the auth 
     } else if (isError) { //persist: yes, token: no
         console.log('error')
         content = (
