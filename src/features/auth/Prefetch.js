@@ -5,16 +5,13 @@ import { useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
 
 const Prefetch = () => {
-    useEffect(() => {
-        console.log('subscribing') //we will have access to the state and will not expire by a set amount of time by default, it will un subscribe when we log out or when we are not in protected mode.
-        const notes = store.dispatch(notesApiSlice.endpoints.getNotes.initiate()) //manual subscription, we call the end point, get the notes
-        const users = store.dispatch(usersApiSlice.endpoints.getUsers.initiate())
 
-        return () => {
-            console.log('unsubscribing')
-            notes.unsubscribe()
-            users.unsubscribe()
-        }
+    useEffect(() => {
+        // Prefetch data for 'getNotes' from the 'notesApiSlice'.
+        // This API call fetches the 'notesList' and stores it in Redux state for use throughout the application.
+        // The 'force: true' option ensures that the data is fetched even if it's already in the cache.
+        store.dispatch(notesApiSlice.util.prefetch('getNotes', 'notesList', { force: true }))
+        store.dispatch(usersApiSlice.util.prefetch('getUsers', 'usersList', { force: true })) 
     }, [])
 
     return <Outlet />

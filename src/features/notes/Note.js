@@ -1,13 +1,16 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPenToSquare } from "@fortawesome/free-solid-svg-icons"
 import { useNavigate } from 'react-router-dom'
-
-import { useSelector } from 'react-redux'
-import { selectNoteById } from './notesApiSlice'
+import { useGetNotesQuery } from './notesApiSlice'
+import { memo } from 'react'
 
 const Note = ({ noteId }) => {
 
-    const note = useSelector(state => selectNoteById(state, noteId))
+    const {note} = useGetNotesQuery("notesList", {
+        selectFromResults: ({data}) =>({ //this is the delector for the useGetNotesQuery 
+            note: data?.entities[noteId] //this gives us the note the same way as before, this will only make one query, as opposed to before where more than one was created. 
+        })
+    })
 
     const navigate = useNavigate()
 
@@ -44,4 +47,6 @@ const Note = ({ noteId }) => {
 
     } else return null
 }
-export default Note
+const memoizedNote = memo(Note)//this component will rerender if only there are changes with the note
+
+export default memoizedNote

@@ -9,10 +9,12 @@ const initialState = usersAdapter.getInitialState();
 export const usersApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getUsers: builder.query({
-      query: () => "/users",
+      query: () => ({
+        url:"/users",
       validateStatus: (response, result) => {
         return response.status === 200 && !result.isError;
       },
+    }),
       //keepUnusedDataFor: 5, //will keep the data for 5 second, the default is 60 seconds in the cache
       transformResponse: (responseData) => {
         //geting the response form trhe query, we are mapping over the data, and we are setting the user.id property to yhe user._id, because we are looking for an id property, and then we retrn the userAdapter and add the loaded users into it, from mongoDB

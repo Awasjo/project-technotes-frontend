@@ -12,10 +12,12 @@ const initialState = notesAdapter.getInitialState();
 export const notesApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getNotes: builder.query({
-      query: () => "/notes",
-      validateStatus: (response, result) => {
-        return response.status === 200 && !result.isError;
-      },
+      query: () => ({
+        url: "/notes",
+        validateStatus: (response, result) => {
+          return response.status === 200 && !result.isError;
+        },
+      }),
       //keepUnusedDataFor: 5, //will keep the data for 5 second, the default is 60 seconds in the cache
       transformResponse: (responseData) => {
         //geting the response form trhe query, we are mapping over the data, and we are setting the note.id property to yhe note._id, because we are looking for an id property, and then we retrn the noteAdapter and add the loaded notes into it, from mongoDB
