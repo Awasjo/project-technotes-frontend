@@ -1,4 +1,5 @@
 Using https://www.youtube.com/watch?v=CvCiNeLnZ00
+https://github.com/gitdagray/mern_stack_course
 
 Thanks, Dave Gray for helping me learn MERN and Redux
 all this code is from the YouTube video with additional comments to help me understand the purpose and flow of all components provided by redux/react and custom one.
