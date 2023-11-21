@@ -10,3 +10,7 @@ Compared to the Angular framework, I like how React is more focused on .js files
 
 the result is deployed over here: 
 https://technotes-mkw3.onrender.com/
+
+Can test using these credentials
+user Tester
+pass Tester123
