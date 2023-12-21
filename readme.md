@@ -11,6 +11,6 @@ Compared to the Angular framework, I like how React is more focused on .js files
 the result is deployed over here: 
 https://technotes-mkw3.onrender.com/
 
-Can test using these credentials
+Can test using these credentials, please open the back end as well to make sure APIs are running: https://technotes-api-rm77.onrender.com/
 user Tester
 pass Tester123
